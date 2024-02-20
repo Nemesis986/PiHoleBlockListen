@@ -282,28 +282,13 @@ blocklist_urls = [
 ]
 
 
-# Funktion zum Herunterladen und Zusammenführen der Blocklisten
-def merge_blocklists(urls):
-    merged_list = set()
-    for url in urls:
-        response = requests.get(url)
-        if response.status_code == 200:
-            lines = response.text.split('\n')
-            for line in lines:
-                line = line.strip()
-                if line and not line.startswith('#'):
-                    merged_list.add(line)
-        else:
-            print(f"Fehler beim Herunterladen von {url}: {response.status_code}")
-    return merged_list
+# Pfad zur Ausgabedatei
+output_file = "blocklist_urls.txt"
 
-# Zusammenführen der Blocklisten
-merged_blocklist = merge_blocklists(blocklist_urls)
+# Schreiben der URLs in die Datei
+with open(output_file, "w") as file:
+    for url in blocklist_urls:
+        file.write(url + "\n")
+        print((url + "\n"))
 
-# Speichern der zusammengeführten Blockliste in einer Datei
-output_file = "merged_blocklist.txt"
-with open(output_file, 'w') as file:
-    for item in merged_blocklist:
-        file.write("%s\n" % item)
-
-print(f"Die Blockliste wurde erfolgreich in '{output_file}' gespeichert.")
+print("Die URLs wurden erfolgreich in die Datei geschrieben:", output_file)
