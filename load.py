@@ -285,10 +285,13 @@ blocklist_urls = [
 # Pfad zur Ausgabedatei
 output_file = "blocklist_urls.txt"
 
-# Schreiben der URLs in die Datei
-with open(output_file, "w") as file:
-    for url in blocklist_urls:
-        file.write(url + "\n")
-        print((url + "\n"))
+# Entfernen von Duplikaten durch Verwendung eines Sets
+unique_urls = set(blocklist_urls)
 
-print("Die URLs wurden erfolgreich in die Datei geschrieben:", output_file)
+# Schreiben der einzigartigen URLs in die Datei
+with open(output_file, "w") as file:
+    for url in unique_urls:
+        file.write(url + "\n")
+        print(url)
+
+print("Die einzigartigen URLs wurden erfolgreich in die Datei geschrieben:", output_file)
